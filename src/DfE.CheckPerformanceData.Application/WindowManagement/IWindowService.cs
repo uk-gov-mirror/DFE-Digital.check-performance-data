@@ -30,7 +30,13 @@ public sealed class CheckingWindowDto
     public string SchemaFileChecksum { get; set; } = string.Empty;
     public bool Validated { get; set; }
     public DateTime? ValidatedAt { get; set; }
-    public bool IsOpen { get; set; }
+    public bool IsOpen {
+        get
+        {
+            DateTimeOffset now = DateTime.UtcNow;
+            return (StartDate <= now.DateTime && now.DateTime <= EndDate);
+
+        } set; }
 
     /// <summary>
     /// The CSV + schema pairs ingested for this window, in sort order. A Post16 window has two
