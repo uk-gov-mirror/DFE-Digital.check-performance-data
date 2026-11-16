@@ -60,4 +60,3 @@ jobs:
         namespace: ${{ env.NAMESPACE }}
         cluster: ${{ env.CLUSTER }}
         dry-run: ${{ env.DRY_RUN }}
-        jump-pod: true
