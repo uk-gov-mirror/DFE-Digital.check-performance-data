@@ -51,7 +51,7 @@ jobs:
         echo "NAMESPACE=$(jq -r '.namespace' ${tf_vars_file})" >> $GITHUB_ENV
 
     - name: Fix Airbyte replication slot
-      uses: DFE-Digital/github-actions/fix-airbyte-replication-slot@master
+      uses: DFE-Digital/github-actions/fix-airbyte-replication-slot@add-jump-pod-to-fix-airbyte-slot # TEMPORARY: change back to @master after github-actions PR merges
       with:
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -60,3 +60,4 @@ jobs:
         namespace: ${{ env.NAMESPACE }}
         cluster: ${{ env.CLUSTER }}
         dry-run: ${{ env.DRY_RUN }}
+        jump-pod: true
