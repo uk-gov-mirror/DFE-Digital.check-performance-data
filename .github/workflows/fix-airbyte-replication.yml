@@ -1,6 +1,7 @@
 name: Fix Airbyte Replication
 
 on:
+  push: # TEMPORARY: remove before merge
   workflow_dispatch:
     inputs:
       environment:
@@ -34,10 +35,10 @@ jobs:
     name: Fix Airbyte replication slot
     runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.environment || 'production' }}
+      name: ${{ inputs.environment || (github.event_name == 'push' && 'qa') || 'production' }} # TEMPORARY push condition: remove before merge
     env:
-      DEPLOY_ENV: ${{ inputs.environment || 'production' }}
-      DRY_RUN: ${{ inputs.dry-run || 'false' }}
+      DEPLOY_ENV: ${{ inputs.environment || (github.event_name == 'push' && 'qa') || 'production' }} # TEMPORARY push condition: remove before merge
+      DRY_RUN: ${{ inputs.dry-run || (github.event_name == 'push' && 'true') || 'false' }} # TEMPORARY push condition: remove before merge
 
     steps:
     - name: Checkout
